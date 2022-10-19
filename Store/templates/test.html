@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于校园外卖平台的大数据分析与可视化</title>
+    <link rel="stylesheet" href="{% static 'mdui-v1.0.1/css/mdui.min.css' %}">
+    <script type="text/javascript" src="{% static 'public/echarts.min.js' %}"></script>
+</head>
+<body class="mdui-appbar-with-toolbar mdui-drawer-body-left">
+<div class="mdui-toolbar mdui-shadow-4 mdui-appbar-fixed">
+    <span class="mdui-typo-title">基于校园外卖平台的大数据分析与可视化</span>
+    <div class="mdui-toolbar-spacer"></div>
+</div>
+<div class="mdui-drawer">
+    <ul class="mdui-list" mdui-collapse="{accordion: true}">
+        <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon"></i>
+            <div class="mdui-list-item-content"><a href="{{ host }}">获取最新数据</a></div>
+        </li>
+        <li class="mdui-collapse-item {{ state.0 }}">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon"></i>
+                <div class="mdui-list-item-content">店铺数据</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/MostPopularStore">最受欢迎的店铺排行</a>
+                </li>
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/MonthlySalesRank">店铺月销量排行</a></li>
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/MonthlyTurnoverRank">店铺月营业额排行</a>
+                </li>
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/TotalTurnoverAll">店铺总营业额排行</a>
+                </li>
+            </ul>
+        </li>
+        <li class="mdui-collapse-item {{ state.1 }}">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon"></i>
+                <div class="mdui-list-item-content">商品数据</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/CommodityRank">商品月销量排行</a></li>
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/GoodsMonthlyTurnover">商品月销量</a>
+                </li>
+                <li class="mdui-list-item mdui-ripple"><a
+                        href="{{ host }}/GoodsMonthlyTurnoverRank">商品月营业额排行</a></li>
+            </ul>
+        </li>
+        <li class="mdui-collapse-item {{ state.2 }}">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon"></i>
+                <div class="mdui-list-item-content">个人数据</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <li class="mdui-list-item mdui-ripple"><a href="{{ host }}/PersonalAnalysis">个人消费分析</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="mdui-panel" mdui-panel style="display:{{ panel }}">
+    <div class="mdui-panel-item">
+        <div class="mdui-panel-item-header">选择绘制</div>
+        <div class="mdui-panel-item-body">
+            <!-- 第一个嵌套的可扩展列表 -->
+            {% for Storename in Storenames.0 %}
+                <div class="mdui-panel" mdui-panel>
+                    <div class="mdui-panel-item">
+                        <a href="{{ host }}/GoodsMonthlyTurnover?name={{ Storename.Storetitle }}">
+                            <div class="mdui-panel-item-header">{{ Storename.Storetitle }}</div>
+                        </a>
+                        <div class="mdui-panel-item-body">
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div style="width: 20%;display: {{ search }}">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-left">
+        <button class="mdui-textfield-icon mdui-btn mdui-btn-icon"
+                onclick="document.getElementById('search').value===''?1===1
+                :window.location='{{ host }}/PersonalAnalysis?phone='+
+                document.getElementById('search').value">
+            <i class="mdui-icon material-icons">search</i>
+        </button>
+        <input id="search" class="mdui-textfield-input" type="text" placeholder="Search" value=""/>
+        <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">close</i>
+        </button>
+    </div>
+</div>
+<div style="display: flex;margin-top: 60px">
+    <div style="width: 100%;margin-top: 40px">
+        {% autoescape off %}
+            {{ my_pic }}
+        {% endautoescape %}
+    </div>
+    <div style="width: 100%;margin-top: 40px">
+        {% autoescape off %}
+            {{ my_pic2 }}
+        {% endautoescape %}
+    </div>
+</div>
+<script src="{% static 'mdui-v1.0.1/js/mdui.min.js' %}"></script>
+<script>
+
+</script>
+</body>
+</html>
